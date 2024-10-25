@@ -30,16 +30,34 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() =>
+    JSON.parse(localStorage.getItem("user") || "null"),
+  );
+  const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
   const isAuthenticated = Boolean(user);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
     const token = Cookies.get("token");
 
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser));
+    if (token && user) {
+      // Função para verificar se o token é válido
+      const validateToken = async () => {
+        try {
+          // Verifica se o token é válido chamando a API
+          await authApi.validateToken();
+          setUser(JSON.parse(localStorage.getItem("user") || "null"));
+        } catch (error) {
+          // Caso o token não seja válido, faz logout
+          logout();
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      validateToken();
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -128,7 +146,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{ user, isAuthenticated, login, register, logout }}
     >
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };

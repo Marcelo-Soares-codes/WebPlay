@@ -34,6 +34,17 @@ class AuthApi {
       throw error; // Lida com o erro externamente
     }
   }
+
+  // Método para validar o token
+  async validateToken() {
+    try {
+      const response = await api.get("/auth/validate-token");
+
+      return response.data; // Retorna a resposta da validação do token
+    } catch (error) {
+      throw error; // Lida com o erro externamente
+    }
+  }
 }
 
 export default new AuthApi();

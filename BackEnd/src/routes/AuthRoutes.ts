@@ -15,6 +15,9 @@ const authRoutes = (app: Express) => {
 
   // Rota para login de usuário
   app.post("/auth/login", asyncHandler(AuthController.login));
+
+  // Rota para validação de token
+  app.get("/auth/validate-token", asyncHandler(AuthController.validateToken));
 };
 
 export default authRoutes;

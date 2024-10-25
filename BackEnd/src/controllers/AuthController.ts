@@ -108,6 +108,25 @@ class AuthController {
       return res.status(500).json({ message: "Erro interno do servidor" });
     }
   }
+  // Função de validação de token
+  async validateToken(req: Request, res: Response) {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Token não fornecido" });
+    }
+
+    try {
+      // Verifica e decodifica o token
+      const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+
+      // Se o token for válido, retorna uma resposta positiva
+      return res.status(200).json({ message: "Token válido", decoded });
+    } catch (error) {
+      // Caso o token seja inválido ou tenha expirado
+      return res.status(401).json({ message: "Token inválido ou expirado" });
+    }
+  }
 }
 
 export default new AuthController();

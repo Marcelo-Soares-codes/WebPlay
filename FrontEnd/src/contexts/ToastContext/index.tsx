@@ -51,18 +51,20 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <ToastContext.Provider value={{ showToast, hideToast }}>
-      {children}
-      <div className="fixed top-6 right-6 z-50 flex flex-col space-y-4">
-        {toasts.map((toast) => (
-          <Toast
-            key={toast.id}
-            isOpen={true}
-            message={toast.message}
-            time={toast.time}
-            type={toast.type}
-            onClose={() => hideToast(toast.id)}
-          />
-        ))}
+      <div className="relative w-full min-h-screen">
+        <div className="w-full justify-end items-end p-6 fixed top-6 right-6 z-50 flex flex-col space-y-4">
+          {toasts.map((toast) => (
+            <Toast
+              key={toast.id}
+              isOpen={true}
+              message={toast.message}
+              time={toast.time}
+              type={toast.type}
+              onClose={() => hideToast(toast.id)}
+            />
+          ))}
+        </div>
+        {children}
       </div>
     </ToastContext.Provider>
   );
