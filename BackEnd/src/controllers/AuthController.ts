@@ -43,7 +43,7 @@ class AuthController {
         { id: user.id },
         process.env.JWT_SECRET as string,
         {
-          expiresIn: "1h",
+          expiresIn: "8h",
         },
       );
 
@@ -94,7 +94,7 @@ class AuthController {
         { id: newUser.id },
         process.env.JWT_SECRET as string,
         {
-          expiresIn: "1h",
+          expiresIn: "8h",
         },
       );
 

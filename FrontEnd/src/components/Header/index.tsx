@@ -30,7 +30,7 @@ export const Header = ({}: HeaderProps) => {
 
   return (
     <Navbar
-      className="shadow-md border-b border-zinc-400"
+      className="shadow-md border-b border-zinc-400 z-20"
       height={75}
       maxWidth="full"
       onMenuOpenChange={setIsMenuOpen}
@@ -44,7 +44,7 @@ export const Header = ({}: HeaderProps) => {
           <Image
             className="object-contain mx-auto"
             height={60}
-            src="./logo.png"
+            src="/logo.png"
             width={60}
           />
         </Link>
@@ -52,12 +52,12 @@ export const Header = ({}: HeaderProps) => {
       <NavbarContent justify="end">
         {user?.name && (
           <Dropdown>
-            <DropdownTrigger>
-              <span className="cursor-pointer text-sm font-medium hover:text-gray-700">
+            <DropdownTrigger className="flex h-full items-center">
+              <div className="cursor-pointer text-sm font-medium hover:text-gray-700">
                 {user.name}
-              </span>
+              </div>
             </DropdownTrigger>
-            <DropdownMenu aria-label="User menu options">
+            <DropdownMenu closeOnSelect aria-label="User menu options">
               <DropdownItem
                 key="logout"
                 className="!text-red-600 hover:bg-none"

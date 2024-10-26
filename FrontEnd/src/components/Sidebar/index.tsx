@@ -8,7 +8,7 @@ const Sidebar = () => {
   return (
     <aside className="hidden sm:flex">
       <div
-        className={`sticky top-16 left-0 h-[calc(100vh-4rem)] bg-white border-r-1 border-zinc-400 z-50 text-white flex flex-col py-2 transition-width duration-300 w-14 md:w-16 px-2`}
+        className={`sticky top-16 left-0 h-[calc(100vh-4rem)] bg-white border-r-1 border-zinc-400 z-10 text-white flex flex-col py-2 transition-width duration-300 w-14 md:w-16 px-2 pt-4`}
       >
         {/* Navigation */}
         <nav className="flex-grow flex flex-col items-center justify-between py-2">

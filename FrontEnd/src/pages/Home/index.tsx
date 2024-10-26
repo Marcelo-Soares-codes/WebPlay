@@ -22,14 +22,14 @@ const games: GameInterface[] = [
     title: "jogo da velha",
     description:
       "Conheca o jogo da velha de uma forma diferente da tradicional, divirta-se com o novo tic-tac-toe!",
-    link: "https://example.com/game2",
+    link: "/tic-tac-toe",
     status: "hot",
   },
   {
     img: "./dama.png",
     title: "Jogo da Dama",
     description: "Jogue um dos jogos clássicos da Dama e divirta-se!",
-    link: "https://example.com/game1",
+    link: "",
     status: "coming-soon",
   },
 ];
