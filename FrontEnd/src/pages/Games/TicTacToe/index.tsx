@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
   return (
     <TemplateAuth>
-      <div className="flex flex-col justify-center items-center h-full">
+      <div className="flex flex-col justify-center items-center h-[65vh]">
         <Card>
           <CardBody className="space-y-4 p-8">
             <h1 className="text-2xl mb-4 text-zinc-800 font-semibold">

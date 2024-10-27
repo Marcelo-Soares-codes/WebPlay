@@ -1,3 +1,4 @@
+import { FaTh } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 
 export const LinksSidebar = [
@@ -7,8 +8,8 @@ export const LinksSidebar = [
     icon: <IoHome size={16} />,
   },
   {
-    title: "inícios",
-    to: "/ss",
-    icon: <IoHome size={16} />,
+    title: "Todos os Jogos",
+    to: "/all-games",
+    icon: <FaTh size={16} />,
   },
 ];

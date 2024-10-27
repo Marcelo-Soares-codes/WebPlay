@@ -95,7 +95,7 @@ const TicTacToeLocal: React.FC = () => {
 
   return (
     <TemplateAuth>
-      <main className="relative flex flex-col items-center justify-center h-full">
+      <main className="relative flex flex-col items-center justify-center h-[65vh] sm:h-full">
         <Button
           className="border-none absolute top-0 left-0"
           color="primary"

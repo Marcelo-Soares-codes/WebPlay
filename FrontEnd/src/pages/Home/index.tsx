@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 
+import { GamesMock } from "@/../utils/GamesMock";
 import { CardGames } from "@/components/CardGames";
 import { TemplateAuth } from "@/components/TemplateAuth";
 import { useAuth } from "@/contexts/AuthContext";
@@ -7,32 +8,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-interface GameInterface {
-  img: string;
-  title: string;
-  description: string;
-  link: string;
-  status?: "normal" | "hot" | "coming-soon" | "disabled";
-}
-
 const banners = ["./banner1.png", "./banner2.png", "./banner3.png"];
-const games: GameInterface[] = [
-  {
-    img: "./tik-tac-toe.png",
-    title: "jogo da velha",
-    description:
-      "Conheca o jogo da velha de uma forma diferente da tradicional, divirta-se com o novo tic-tac-toe!",
-    link: "/tic-tac-toe",
-    status: "hot",
-  },
-  {
-    img: "./dama.png",
-    title: "Jogo da Dama",
-    description: "Jogue um dos jogos clássicos da Dama e divirta-se!",
-    link: "",
-    status: "coming-soon",
-  },
-];
 
 const Home = () => {
   const { user } = useAuth();
@@ -67,8 +43,8 @@ const Home = () => {
         </div>
         <div className="pt-16 space-y-4">
           <h3 className="text-2xl font-bold">Nosso jogos</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {games.map((game, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {GamesMock.map((game, index) => (
               <CardGames
                 key={index}
                 description={game.description}
