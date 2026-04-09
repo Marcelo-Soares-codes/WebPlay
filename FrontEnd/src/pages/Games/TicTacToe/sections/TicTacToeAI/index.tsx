@@ -1,11 +1,11 @@
 import { Button } from "@nextui-org/button";
 import React, { useState, useEffect } from "react";
 import { IoArrowBack } from "react-icons/io5";
+
+import { TemplateAuth } from "@/components/TemplateAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import GameBoard from "../../components/Gameboard";
-
-import { TemplateAuth } from "@/components/TemplateAuth";
 
 type Player = "X" | "O" | null;
 

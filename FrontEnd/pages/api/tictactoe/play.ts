@@ -1,0 +1,39 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import { requireAuthenticatedUserId } from "@/server/auth";
+import { playMove } from "@/server/services/tictactoe-service";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method not allowed" });
+  }
+
+  try {
+    const playerId = requireAuthenticatedUserId(req);
+    const { roomId, position } = req.body as {
+      roomId?: string;
+      position?: number;
+    };
+
+    if (!roomId || typeof position !== "number") {
+      return res.status(400).json({ message: "Dados da jogada invalidos" });
+    }
+
+    const payload = await playMove(roomId, playerId, position);
+
+    return res.status(200).json(payload);
+  } catch (error) {
+    const status =
+      error instanceof Error && error.message === "Token nao fornecido"
+        ? 401
+        : 500;
+
+    return res.status(status).json({
+      message:
+        error instanceof Error ? error.message : "Erro interno do servidor",
+    });
+  }
+}

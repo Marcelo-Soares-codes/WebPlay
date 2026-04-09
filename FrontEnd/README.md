@@ -1,50 +1,56 @@
-# Vite & NextUI Template
+# WebPlay
 
-This is a template for creating applications using Vite and NextUI (v2).
+Hub de jogos interno construído com Next.js.
 
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/vite-template)
+## Objetivo
 
-## Technologies Used
+Esta base foi consolidada para servir como ponto de partida sólido para:
 
-- [Vite](https://vitejs.dev/guide/)
-- [NextUI](https://nextui.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
+- jogos internos desenvolvidos dentro do próprio projeto
+- autenticação e persistência no mesmo app Next
+- expansão futura para novos jogos sem dependência de backend separado
+- evolução posterior para jogos embedados, sem travar a arquitetura atual
 
-## How to Use
+## Stack
 
-To clone the project, run the following command:
+- Next.js 14
+- React 18
+- TypeScript
+- NextUI
+- Tailwind CSS
+- Socket.IO
+- MongoDB com Mongoose
+
+## Estrutura
+
+- `pages/`: rotas públicas, páginas de jogo e rotas de API do Next
+- `src/components/`: UI compartilhada
+- `src/contexts/`: autenticação, toast e socket
+- `src/data/`: catálogo interno de jogos do hub
+- `src/server/`: serviços, modelos e autenticação do lado servidor
+- `utils/api/`: clientes HTTP usados pelo front
+
+## Ambiente
+
+Crie um `.env` a partir de `.env.example`:
 
 ```bash
-git clone https://github.com/nextui-org/vite-template.git
+MONGODB_URI=mongodb://127.0.0.1:27017/webplay
+JWT_SECRET=change-me
 ```
 
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+## Scripts
 
 ```bash
 npm install
-```
-
-### Run the development server
-
-```bash
 npm run dev
+npm run lint
+npm run build
 ```
 
-### Setup pnpm (optional)
+## Estado atual
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@nextui-org/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/nextui-org/vite-template/blob/main/LICENSE).
+- backend separado removido
+- base unificada em Next
+- lint limpo
+- estrutura pronta para adicionar novos jogos internos

@@ -1,5 +1,6 @@
-// src/contexts/ToastContext.tsx
-import React, { createContext, useCallback, useContext, useState } from "react";
+import type React from "react";
+
+import { createContext, useCallback, useContext, useState } from "react";
 
 import { Toast } from "@/components/Toast";
 
@@ -32,31 +33,28 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({
       type: "success" | "error" | "warning",
       time: number = 3000,
     ) => {
-      const id = Date.now(); // Usar timestamp como ID único
+      const id = Date.now();
       const newToast: ToastData = { id, message, type, time };
 
-      setToasts((prevToasts) => [...prevToasts, newToast]);
-
-      // Remover o toast automaticamente após o tempo especificado
-      setTimeout(() => {
-        hideToast(id);
-      }, time);
+      setToasts((currentToasts) => [...currentToasts, newToast]);
     },
     [],
   );
 
   const hideToast = useCallback((id: number) => {
-    setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+    setToasts((currentToasts) =>
+      currentToasts.filter((toast) => toast.id !== id),
+    );
   }, []);
 
   return (
     <ToastContext.Provider value={{ showToast, hideToast }}>
-      <div className="relative w-full min-h-screen">
-        <div className="w-full justify-end items-end p-6 fixed top-6 right-6 z-50 flex flex-col space-y-4">
+      <div className="relative min-h-screen w-full">
+        <div className="fixed right-6 top-6 z-50 flex flex-col items-end justify-end space-y-4 p-6">
           {toasts.map((toast) => (
             <Toast
               key={toast.id}
-              isOpen={true}
+              isOpen
               message={toast.message}
               time={toast.time}
               type={toast.type}

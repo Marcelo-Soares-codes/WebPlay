@@ -7,9 +7,9 @@ import {
   PopoverTrigger,
   useDisclosure,
 } from "@nextui-org/react";
-import { useNavigate } from "react-router-dom";
 
 import { TemplateAuth } from "@/components/TemplateAuth";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();

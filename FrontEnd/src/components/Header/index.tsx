@@ -12,11 +12,11 @@ import {
 import { Image, Link } from "@nextui-org/react";
 import { useState } from "react";
 
+import { useAuth } from "@/contexts/AuthContext";
+
 import { LinksSidebar } from "../Sidebar/links";
 
 import { LinksHeader } from "./Links";
-
-import { useAuth } from "@/contexts/AuthContext";
 
 interface HeaderProps {}
 
@@ -42,6 +42,7 @@ export const Header = ({}: HeaderProps) => {
         />
         <Link href="/">
           <Image
+            alt="WebPlay"
             className="object-contain mx-auto"
             height={60}
             src="/logo.png"

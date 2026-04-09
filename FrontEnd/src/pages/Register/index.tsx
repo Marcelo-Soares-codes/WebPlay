@@ -1,10 +1,13 @@
+import type React from "react";
+
 import { Button, Card, CardBody, Input } from "@nextui-org/react";
-import React, { useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/contexts/ToastContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register: React.FC = () => {
   const [name, setName] = useState("");
@@ -22,7 +25,7 @@ const Register: React.FC = () => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      showToast("As senhas não correspondem.", "error");
+      showToast("As senhas nao correspondem.", "error");
 
       return;
     }
@@ -30,9 +33,8 @@ const Register: React.FC = () => {
     try {
       await register(name, email, password, nickname);
       showToast("Registro realizado com sucesso!", "success");
-      navigate("/"); // Redireciona para a página principal após o registro bem-sucedido
-    } catch (err) {
-      console.error("Falha ao realizar o registro:", err);
+      navigate("/");
+    } catch {
       showToast(
         "Falha ao realizar o registro. Verifique os dados informados.",
         "error",
@@ -40,25 +42,19 @@ const Register: React.FC = () => {
     }
   };
 
-  const toggleShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
-
-  const toggleShowConfirmPassword = () => {
-    setShowConfirmPassword((prev) => !prev);
-  };
-
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
       <Card fullWidth className="max-w-sm">
         <CardBody className="w-full items-center p-6">
-          <img
-            alt="Logo"
-            className="w-32 h-auto object-cover mb-2"
-            src="logo.png"
+          <Image
+            alt="Logo WebPlay"
+            className="mb-2 h-auto w-32 object-cover"
+            height={96}
+            src="/logo.png"
+            width={128}
           />
-          <h2 className="text-3xl font-bold text-center mb-6">Registro</h2>
-          <form className="space-y-4 w-full" onSubmit={handleRegister}>
+          <h2 className="mb-6 text-center text-3xl font-bold">Registro</h2>
+          <form className="w-full space-y-4" onSubmit={handleRegister}>
             <Input
               required
               className="w-full"
@@ -94,7 +90,7 @@ const Register: React.FC = () => {
                 <button
                   className="absolute right-2 top-3 text-gray-500"
                   type="button"
-                  onClick={toggleShowPassword}
+                  onClick={() => setShowPassword((current) => !current)}
                 >
                   {showPassword ? (
                     <AiOutlineEyeInvisible size={20} />
@@ -108,7 +104,7 @@ const Register: React.FC = () => {
                   required
                   className="w-full"
                   classNames={{ input: "pr-5" }}
-                  placeholder="Confirmar Senha"
+                  placeholder="Confirmar senha"
                   type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -116,7 +112,7 @@ const Register: React.FC = () => {
                 <button
                   className="absolute right-2 top-3 text-gray-500"
                   type="button"
-                  onClick={toggleShowConfirmPassword}
+                  onClick={() => setShowConfirmPassword((current) => !current)}
                 >
                   {showConfirmPassword ? (
                     <AiOutlineEyeInvisible size={20} />
@@ -134,12 +130,12 @@ const Register: React.FC = () => {
             >
               Registrar
             </Button>
-            <div className="w-full flex justify-end items-end">
+            <div className="flex w-full items-end justify-end">
               <div className="flex flex-col text-center">
-                <span className="text-xs text-gray-500">Já tem uma conta?</span>
+                <span className="text-xs text-gray-500">Ja tem uma conta?</span>
                 <Link
-                  className="text-blue-600 text-sm transition-all hover:text-blue-800"
-                  to={"/login"}
+                  className="text-sm text-blue-600 transition-all hover:text-blue-800"
+                  to="/login"
                 >
                   Fazer login
                 </Link>

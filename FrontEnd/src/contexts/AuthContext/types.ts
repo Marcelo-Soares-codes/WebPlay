@@ -1,10 +1,12 @@
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  password: string;
   nickname: string;
   score: number;
+  photo?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface AuthContextData {

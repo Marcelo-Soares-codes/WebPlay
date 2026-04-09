@@ -1,0 +1,30 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import { requireAuthenticatedUserId } from "@/server/auth";
+import { joinRoom } from "@/server/services/tictactoe-service";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method not allowed" });
+  }
+
+  try {
+    const playerId = requireAuthenticatedUserId(req);
+    const room = await joinRoom(req.body.roomId, playerId);
+
+    return res.status(200).json(room);
+  } catch (error) {
+    const status =
+      error instanceof Error && error.message === "Token nao fornecido"
+        ? 401
+        : 500;
+
+    return res.status(status).json({
+      message:
+        error instanceof Error ? error.message : "Erro interno do servidor",
+    });
+  }
+}

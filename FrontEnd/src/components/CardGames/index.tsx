@@ -1,68 +1,74 @@
-import { Card, CardBody, CardFooter, Button } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter } from "@nextui-org/react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface CardGamesProps {
-  img: string;
+  image: string;
   title: string;
   description: string;
-  link: string;
+  href: string;
   status?: "normal" | "hot" | "coming-soon" | "disabled";
 }
 
 export const CardGames = ({
-  img,
+  image,
   title,
   description,
-  link,
+  href,
   status,
 }: CardGamesProps) => {
-  // Determina o estado do botão e do badge com base no status
   const isDisabled = status === "disabled";
   const isComingSoon = status === "coming-soon";
+  const isPlayable = !isDisabled && !isComingSoon;
   const buttonText = isDisabled
-    ? "Indisponível"
+    ? "Indisponivel"
     : isComingSoon
-      ? "Em Breve"
+      ? "Em breve"
       : "Jogar";
   const buttonColor = isDisabled ? "default" : "primary";
-  const buttonLink = isDisabled || isComingSoon ? undefined : link;
 
   return (
     <Card
       className={`${
         isDisabled
-          ? "grayscale"
+          ? "cursor-not-allowed grayscale"
           : isComingSoon
-            ? "border border-dashed border-yellow-500"
-            : ""
+            ? "cursor-not-allowed border border-dashed border-yellow-500"
+            : "cursor-pointer hover:scale-[1.01] hover:shadow-lg active:scale-95"
       }`}
     >
       <CardBody>
-        <div className="relative">
-          <img alt={title} className="w-full h-auto" src={img} />
+        <div className="relative aspect-[4/3]">
+          <Image
+            fill
+            alt={title}
+            className="h-full w-full object-cover"
+            sizes="(max-width: 768px) 50vw, 25vw"
+            src={image}
+          />
           {status === "hot" && (
-            <span className="absolute left-2 top-2 bg-primary px-3 py-1 rounded-xl text-white">
-              🔥Hot
+            <span className="absolute left-2 top-2 rounded-xl bg-primary px-3 py-1 text-white">
+              Hot
             </span>
           )}
           {isComingSoon && (
-            <span className="absolute left-2 top-2 bg-yellow-500 px-3 py-1 rounded-xl text-white">
-              ⏳Em Breve
+            <span className="absolute left-2 top-2 rounded-xl bg-yellow-500 px-3 py-1 text-white">
+              Em breve
             </span>
           )}
         </div>
         <div className="mt-4">
-          <h4 className="font-semibold text-xl">{title}</h4>
+          <h4 className="text-xl font-semibold">{title}</h4>
           <p className="text-sm text-gray-500">{description}</p>
         </div>
       </CardBody>
       <CardFooter className="justify-end">
         <Button
-          as="a"
+          as={isPlayable ? Link : "button"}
           className="text-white"
           color={buttonColor}
-          disabled={isDisabled || isComingSoon}
-          href={buttonLink}
-          rel="noopener noreferrer"
+          disabled={!isPlayable}
+          href={isPlayable ? href : undefined}
         >
           {buttonText}
         </Button>

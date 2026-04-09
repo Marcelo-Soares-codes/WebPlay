@@ -9,7 +9,8 @@ type GameBoardProps = {
   zerarPlacar: () => void;
   xWins: number;
   oWins: number;
-  isXNext: boolean;
+  isXNext?: boolean;
+  textInfo?: string;
 };
 
 const GameBoard: React.FC<GameBoardProps> = ({
@@ -21,6 +22,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
   xWins,
   oWins,
   isXNext,
+  textInfo,
 }) => {
   return (
     <div className="flex flex-col items-center">
@@ -48,14 +50,19 @@ const GameBoard: React.FC<GameBoardProps> = ({
           Reiniciar jogo
         </Button>
       </Card>
-      <h3 className="text-lg font-bold mb-2">
-        Próximo jogador:{" "}
-        <span className={isXNext ? "text-danger" : "text-primary"}>
-          {isXNext ? "X" : "O"}
-        </span>
-      </h3>
+      {isXNext !== undefined && (
+        <h3 className="text-lg font-bold mb-2">
+          Próximo jogador:{" "}
+          <span className={isXNext ? "text-danger" : "text-primary"}>
+            {isXNext ? "X" : "O"}
+          </span>
+        </h3>
+      )}
+      {textInfo !== undefined && (
+        <h3 className="text-lg font-bold mb-2">{textInfo}</h3>
+      )}
       <Card className="relative">
-        <CardBody className="grid grid-cols-3 gap-2 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-white p-4">
+        <CardBody className="grid grid-cols-3 gap-2 w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-white p-4">
           {board.map((value, index) => (
             <motion.div
               key={index}

@@ -1,11 +1,11 @@
 import { Button } from "@nextui-org/button";
 import { useState, useEffect } from "react";
 import { IoArrowBack } from "react-icons/io5";
+
+import { TemplateAuth } from "@/components/TemplateAuth";
 import { useNavigate } from "react-router-dom";
 
 import GameBoard from "../../components/Gameboard";
-
-import { TemplateAuth } from "@/components/TemplateAuth";
 
 const TicTacToeLocal: React.FC = () => {
   const navigate = useNavigate();

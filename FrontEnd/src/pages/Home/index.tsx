@@ -1,14 +1,15 @@
+import Image from "next/image";
 import Slider from "react-slick";
 
-import { GamesMock } from "@/../utils/GamesMock";
 import { CardGames } from "@/components/CardGames";
 import { TemplateAuth } from "@/components/TemplateAuth";
 import { useAuth } from "@/contexts/AuthContext";
+import { internalGames } from "@/data/games";
 
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
 
-const banners = ["./banner1.png", "./banner2.png", "./banner3.png"];
+const banners = ["/banner1.png", "/banner2.png", "/banner3.png"];
 
 const Home = () => {
   const { user } = useAuth();
@@ -26,30 +27,37 @@ const Home = () => {
 
   return (
     <TemplateAuth>
-      <div className="space-y-6">
-        <h1 className="font-bold text-3xl">Seja bem-vindo, {user?.name}</h1>
+      <div className="space-y-2 sm:space-y-4 md:space-y-6">
+        <h1 className="text-2xl font-bold md:text-3xl">
+          Seja bem-vindo, {user?.name}
+        </h1>
         <div>
           <Slider {...settings}>
             {banners.map((banner, index) => (
-              <div key={index} className="px-1">
-                <img
-                  alt={`Banner ${index + 1}`}
-                  className="w-full h-96 object-cover rounded-md"
-                  src={banner}
-                />
+              <div key={banner} className="px-1">
+                <div className="relative h-52 w-full overflow-hidden rounded-md sm:h-96 md:h-72">
+                  <Image
+                    fill
+                    alt={`Banner ${index + 1}`}
+                    className="object-cover"
+                    priority={index === 0}
+                    sizes="100vw"
+                    src={banner}
+                  />
+                </div>
               </div>
             ))}
           </Slider>
         </div>
-        <div className="pt-16 space-y-4">
-          <h3 className="text-2xl font-bold">Nosso jogos</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {GamesMock.map((game, index) => (
+        <div className="space-y-4 pt-16">
+          <h3 className="text-2xl font-bold">Nossos jogos</h3>
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            {internalGames.map((game) => (
               <CardGames
-                key={index}
+                key={game.id}
                 description={game.description}
-                img={game.img}
-                link={game.link}
+                href={game.href}
+                image={game.image}
                 status={game.status}
                 title={game.title}
               />

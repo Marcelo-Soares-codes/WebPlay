@@ -1,11 +1,18 @@
 import { NextUIProvider } from "@nextui-org/system";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 import { AuthProvider } from "./contexts/AuthContext";
 import { ToastProvider } from "./contexts/ToastContext";
 
 export function Provider({ children }: { children: React.ReactNode }) {
-  const navigate = useNavigate();
+  const router = useRouter();
+  const navigate = useCallback(
+    (href: string) => {
+      void router.push(href);
+    },
+    [router],
+  );
 
   return (
     <NextUIProvider navigate={navigate}>

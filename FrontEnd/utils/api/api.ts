@@ -3,7 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/", // Substitua pela URL base da sua API
+  baseURL: "/api",
 });
 
 // Interceptor para adicionar o token de autenticação em todas as requisições

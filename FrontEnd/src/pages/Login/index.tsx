@@ -1,9 +1,12 @@
+import type React from "react";
+
 import { Button, Card, CardBody, Input } from "@nextui-org/react";
-import React, { useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -14,29 +17,26 @@ const Login: React.FC = () => {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
+
     try {
       await login(email, password);
-      navigate("/"); // Redireciona para a página principal após o login bem-sucedido
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const toggleShowPassword = () => {
-    setShowPassword((prev) => !prev);
+      navigate("/");
+    } catch {}
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
       <Card fullWidth className="max-w-sm">
         <CardBody className="w-full items-center p-6">
-          <img
-            alt="Logo"
-            className="w-32 h-auto object-cover mb-2"
-            src="logo.png"
+          <Image
+            alt="Logo WebPlay"
+            className="mb-2 h-auto w-32 object-cover"
+            height={96}
+            src="/logo.png"
+            width={128}
           />
-          <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
-          <form className="space-y-4 w-full" onSubmit={handleLogin}>
+          <h2 className="mb-6 text-center text-3xl font-bold">Login</h2>
+          <form className="w-full space-y-4" onSubmit={handleLogin}>
             <Input
               required
               className="w-full"
@@ -56,7 +56,7 @@ const Login: React.FC = () => {
               <button
                 className="absolute right-2 top-3 text-gray-500"
                 type="button"
-                onClick={toggleShowPassword}
+                onClick={() => setShowPassword((current) => !current)}
               >
                 {showPassword ? (
                   <AiOutlineEyeInvisible size={20} />
@@ -73,14 +73,14 @@ const Login: React.FC = () => {
             >
               Entrar
             </Button>
-            <div className="w-full flex justify-end items-end ">
+            <div className="flex w-full items-end justify-end">
               <div className="flex flex-col text-center">
                 <span className="text-xs text-gray-500">
-                  Não tem uma conta?
+                  Nao tem uma conta?
                 </span>
                 <Link
-                  className="text-blue-600 text-sm transition-all hover:text-blue-800"
-                  to={"/register"}
+                  className="text-sm text-blue-600 transition-all hover:text-blue-800"
+                  to="/register"
                 >
                   Criar conta
                 </Link>
